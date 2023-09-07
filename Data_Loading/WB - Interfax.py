@@ -12,14 +12,12 @@ InterfaxData = importlib.reload(sys.modules['ifxdata']).InterfaxData
 # create object from InterfaxData class
 IData = ifxdata.InterfaxData()
 # pass window login/password for proxy settings
-IData.set_proxies('pzhuravlev', 'RCJobPsw2')
+IData.set_proxies('pzhuravlev', '')
 
 # get token from Interfax
 IData.get_token()
 # free Interfax token
 IData.free_token()
-
-
 
 dct = {'FinToolId': {1, 2}, 'CouponPeriod': {3, 4}, 'PeriodFrom': {5, 6}, 'PeriodTo': {7, 8}, 'PayPerBond': {9, 0}}
 parsedData = pd.DataFrame(dct)
@@ -55,7 +53,7 @@ data = IData.get_interfax_data('Archive', 'History')
 IData.set_currencies('USD', 'RUB')
 data = IData.get_interfax_data('Archive', 'CurrencyRateHistory')
 
-#data = IData.get_interfax_data('Info', 'Calendar')
+# data = IData.get_interfax_data('Info', 'Calendar')
 
 # -------------------------------
 # ------- BOND CONTROLLER -------
@@ -68,15 +66,11 @@ data = IData.get_interfax_data('Bond', 'Coupons', True)
 
 IData.save_data_to_db()
 
-IData.__parse_coupons_response()
-
-
 data = IData.get_interfax_data('Bond', 'AuctionData')
 
 # ----------------------------------
 # ------- Emitent Controller -------
 # ----------------------------------
-
 
 roughData = IData.get_interfax_data('Info', 'Calendar', False)
 
